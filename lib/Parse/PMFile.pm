@@ -64,7 +64,7 @@ sub parse {
 
         my $pp = $ppp->{$package};
         if ($pp->{version} && $pp->{version} =~ /^\{.*\}$/) { # JSON parser error
-            my $err = JSON::jsonToObj($pp->{version});
+            my $err = JSON::from_json($pp->{version});
             if ($err->{openerr}) {
                 $self->_verbose(1,
                               qq{The PAUSE indexer was not able to
