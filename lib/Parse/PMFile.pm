@@ -267,12 +267,16 @@ sub _packages_per_pmfile {
                         $ppp->{$pkg}{version} = defined $version ? $version : "";
                     }
                     local($^W)=0;
-                    $ppp->{$pkg}{version} =
-                        $version
-                            if $version
-                                > $ppp->{$pkg}{version} ||
-                                    $version
-                                        gt $ppp->{$pkg}{version};
+                    if ($version eq 'undef') {
+                        $ppp->{$pkg}{version} = $version unless defined $ppp->{$pkg}{version};
+                    } else {
+                        $ppp->{$pkg}{version} =
+                            $version
+                                if $version
+                                    > $ppp->{$pkg}{version} ||
+                                        $version
+                                            gt $ppp->{$pkg}{version};
+                    }
                 }
             } else {        # not simile
                 #### it comes later, it would be nonsense
