@@ -20,6 +20,8 @@ sub new {
 sub parse {
     my ($self, $pmfile) = @_;
 
+    $pmfile =~ s|\\|/|g;
+
     my($filemtime) = (stat $pmfile)[9];
     $self->{MTIME} = $filemtime;
     $self->{PMFILE} = $pmfile;
