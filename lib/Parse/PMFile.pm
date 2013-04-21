@@ -67,12 +67,12 @@ sub parse {
             my $err = JSON::from_json($pp->{version});
             if ($err->{openerr}) {
                 $self->_verbose(1,
-                              qq{The PAUSE indexer was not able to
+                              qq{Parse::PMFile was not able to
         read the file. It issued the following error: C< $err->{r} >},
                               );
             } else {
                 $self->_verbose(1, 
-                              qq{The PAUSE indexer was not able to
+                              qq{Parse::PMFile was not able to
         parse the following line in that file: C< $err->{line} >
 
         Note: the indexer is running in a Safe compartement and cannot
