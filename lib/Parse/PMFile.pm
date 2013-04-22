@@ -7,6 +7,9 @@ use JSON;
 use Dumpvalue;
 use CPAN::Version;
 use version ();
+use File::Spec ();
+use File::Temp ();
+use POSIX ':sys_wait_h';
 
 our $VERSION = '0.01';
 our $VERBOSE = 0;
@@ -113,6 +116,7 @@ sub _parse_version {
     use strict;
 
     my $pmfile = $self->{PMFILE};
+    my $tmpfile = File::Spec->catfile(File::Spec->tmpdir, "ParsePMFile$$" . rand(1000));
 
     my $pmcp = $pmfile;
     for ($pmcp) {
@@ -126,7 +130,14 @@ sub _parse_version {
 
         # XXX: do we need to fork as PAUSE does?
         # or, is alarm() just fine?
-        {
+        my $pid = fork();
+        die "Can't fork: $!" unless defined $pid;
+        if ($pid) {
+            waitpid($pid, 0);
+            if (open my $fh, '<', $tmpfile) {
+                $v = <$fh>;
+            }
+        } else {
             # XXX Limit Resources too
 
             my($comp) = Safe->new("_pause::mldistwatch");
@@ -170,8 +181,12 @@ sub _parse_version {
             } else {
                 $v = "";
             }
+            open my $fh, '>:utf8', $tmpfile;
+            print $fh $v;
+            exit 0;
         }
     }
+    unlink $tmpfile if -e $tmpfile;
 
     return $self->_normalize_version($v);
 }
