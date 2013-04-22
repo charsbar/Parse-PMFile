@@ -541,7 +541,7 @@ Parse::PMFile - parses .pm file as PAUSE does
 
 =head1 DESCRIPTION
 
-The most of the code of this module is taken from the PAUSE code as of April 2013 almost verbatim. Thus, the heart of this module should be quite stable. However, I made it not to fork() and not to use pipe ("-|") as well as I stripped database-related code and permission check. If you encounter any issue, that's most probably because of my modification.
+The most of the code of this module is taken from the PAUSE code as of April 2013 almost verbatim. Thus, the heart of this module should be quite stable. However, I made it not to use pipe ("-|") as well as I stripped database-related code and permission check. If you encounter any issue, that's most probably because of my modification.
 
 This module doesn't provide features to extract a distribution or parse meta files intentionally.
 
