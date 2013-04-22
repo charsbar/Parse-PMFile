@@ -445,7 +445,8 @@ sub _normalize_version {
         # was found".
         return $v ;
     }
-    my $vv = version->new($v)->numify;
+    my $vv = eval { version->new($v)->numify };
+    return "undef" if $@;
     if ($vv eq $v) {
         # the boring 3.14
     } else {
