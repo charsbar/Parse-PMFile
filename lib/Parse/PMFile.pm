@@ -358,7 +358,7 @@ sub _packages_per_pmfile {
     }
 }
 
-# package PAUSE::pmfile;
+# from PAUSE::pmfile;
 sub _filter_ppps {
     my($self,@ppps) = @_;
     my @res;
