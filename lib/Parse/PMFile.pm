@@ -505,7 +505,7 @@ sub _version_from_meta_ok {
 
   # Some versions of Module::Build geneated an empty provides hash.  If we're
   # *not* looking at a Module::Build-generated metafile, then it's okay.
-  my ($mb_v) = ($c->{generated_by} // '') =~ /Module::Build version ([\d\.]+)/;
+  my ($mb_v) = (defined $c->{generated_by} ? $c->{generated_by} : '') =~ /Module::Build version ([\d\.]+)/;
   return($self->{VERSION_FROM_META_OK} = 1) unless $mb_v;
 
   # ??? I don't know why this is here.
