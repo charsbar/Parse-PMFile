@@ -281,7 +281,7 @@ sub _packages_per_pmfile {
                     } else {
                         $ppp->{$pkg}{version} = defined $version ? $version : "";
                     }
-                    local($^W)=0;
+                    no warnings;
                     if ($version eq 'undef') {
                         $ppp->{$pkg}{version} = $version unless defined $ppp->{$pkg}{version};
                     } else {
