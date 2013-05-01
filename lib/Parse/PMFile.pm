@@ -445,8 +445,12 @@ sub _normalize_version {
         # was found".
         return $v ;
     }
-    my $vv = eval { version->new($v)->numify };
-    return "undef" if $@;
+    # may warn "Integer overflow"
+    my $vv = eval { no warnings; version->new($v)->numify };
+    if ($@) {
+        warn "$v: $@";
+        return "undef";
+    }
     if ($vv eq $v) {
         # the boring 3.14
     } else {
