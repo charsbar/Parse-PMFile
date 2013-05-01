@@ -166,10 +166,10 @@ sub _parse_version {
                         $v = $comp->reval($2);
                     }
                     if ($@) {
-                        warn sprintf("reval failed: err[%s] for eval[%s]",
+                        $self->_verbose(1, sprintf("reval failed: err[%s] for eval[%s]",
                                       JSON::to_json($err,{pretty => 1}),
                                       $eval,
-                                    );
+                                    ));
                         $v = JSON::to_json($err);
                     }
                 } else {
