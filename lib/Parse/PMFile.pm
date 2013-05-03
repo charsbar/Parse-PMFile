@@ -162,7 +162,7 @@ sub _parse_version {
                 my $err = $@;
                 # warn ">>>>>>>err[$err]<<<<<<<<";
                 if (ref $err) {
-                    if ($err->{line} =~ /[\$*]([\w\:\']*)\bVERSION\b.*\=(.*)/) {
+                    if ($err->{line} =~ /[\$*]([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
                         $v = $comp->reval($2);
                     }
                     if ($@) {
