@@ -203,9 +203,6 @@ sub _packages_per_pmfile {
     $DB::single++;
     open my $fh, "<", "$pmfile" or return $ppp;
 
-    # cf. CPAN.pm ~ 130k as of ver 2.0
-    my $is_largefile = -s "$pmfile" > 100_000;
-
     local $/ = "\n";
     my $inpod = 0;
 
@@ -223,12 +220,6 @@ sub _packages_per_pmfile {
             and $pmfile !~ /\.PL$/   # PL files may well have code after __DATA__
             ){
             last PLINE;
-        }
-
-        # VERSION line should not be that long
-        # (version detection may take too much time without this)
-        if ($is_largefile && length($pline) > 1000) {
-            next if $pline !~ /package|VERSION/;
         }
 
         my $pkg;
