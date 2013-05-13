@@ -227,14 +227,14 @@ sub _packages_per_pmfile {
 
         if (
             $pline =~ m{
-                      (.*)
+                      # (.*) # takes too much time if $pline is long
                       \bpackage\s+
                       ([\w\:\']+)
                       \s*
                       (?: $ | [\}\;] | \s+($version::STRICT) )
                     }x) {
-            $pkg = $2;
-            $strict_version = $3;
+            $pkg = $1;
+            $strict_version = $2;
             if ($pkg eq "DB"){
                 # XXX if pumpkin and perl make him comaintainer! I
                 # think I always made the pumpkins comaint on DB
