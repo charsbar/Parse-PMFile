@@ -11,7 +11,7 @@ use File::Spec ();
 use File::Temp ();
 use POSIX ':sys_wait_h';
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 our $VERBOSE = 0;
 
 sub new {

@@ -1,4 +1,7 @@
 Revision history for Parse-PMFile
 
+0.02 2013/05/13
+  - tweaked package version detection not to take too much time
+
 0.01 2013/05/05
   - initial release
