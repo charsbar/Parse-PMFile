@@ -339,6 +339,7 @@ sub _packages_per_pmfile {
           }; \$$2
       };
             local $^W = 0;
+            local $SIG{__WARN__} = sub {};
             $result = eval($eval);
             # warn "current_parsed_line[$current_parsed_line]\$\@[$@]";
             if ($@ or !defined $result){
@@ -448,7 +449,7 @@ sub _normalize_version {
     # may warn "Integer overflow"
     my $vv = eval { no warnings; version->new($v)->numify };
     if ($@) {
-        warn "$v: $@";
+        # warn "$v: $@";
         return "undef";
     }
     if ($vv eq $v) {
