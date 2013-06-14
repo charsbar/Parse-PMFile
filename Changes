@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.03 2013/06/15
+  - added $ALLOW_DEV_VERSION for analysis
+  - made it ignore $VERSIONs after __(END|DATA)__
+
 0.02 2013/05/13
   - tweaked package version detection not to take too much time
 
