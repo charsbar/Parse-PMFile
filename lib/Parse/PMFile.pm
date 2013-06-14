@@ -13,6 +13,7 @@ use POSIX ':sys_wait_h';
 
 our $VERSION = '0.02';
 our $VERBOSE = 0;
+our $ALLOW_DEV_VERSION = 0;
 
 sub new {
     my ($class, $meta) = @_;
@@ -33,7 +34,7 @@ sub parse {
         $self->{VERSION} = $self->_parse_version;
         if ($self->{VERSION} =~ /^\{.*\}$/) {
             # JSON error message
-        } elsif ($self->{VERSION} =~ /[_\s]/){   # ignore developer releases and "You suck!"
+        } elsif ($self->{VERSION} =~ /[_\s]/ && !$ALLOW_DEV_VERSION){   # ignore developer releases and "You suck!"
             return;
         }
     }
@@ -266,7 +267,7 @@ sub _packages_per_pmfile {
                     if (exists $provides->{$pkg}) {
                         if (exists $provides->{$pkg}{version}) {
                             my $v = $provides->{$pkg}{version};
-                            if ($v =~ /[_\s]/){   # ignore developer releases and "You suck!"
+                            if ($v =~ /[_\s]/ && !$ALLOW_DEV_VERSION){   # ignore developer releases and "You suck!"
                                 next PLINE;
                             } else {
                                 $ppp->{$pkg}{version} = $self->_normalize_version($v);
@@ -560,6 +561,12 @@ creates an object. You can also pass a hashref taken from META.yml etc.
 =head2 parse
 
 takes a path to a .pm file, and returns a hash reference that holds information for package(s) found in the file.
+
+=head1 GLOBAL VARIABLES
+
+=head2 $ALLOW_DEV_VERSION
+
+Parse::PMFile usually ignores a version with an underscore as PAUSE does (because it's for a developer release, and should not be indexed). Set this variable to true if you happen to need to keep such a version for better analysis.
 
 =head1 SEE ALSO
 
