@@ -568,6 +568,10 @@ takes a path to a .pm file, and returns a hash reference that holds information 
 
 Parse::PMFile usually ignores a version with an underscore as PAUSE does (because it's for a developer release, and should not be indexed). Set this variable to true if you happen to need to keep such a version for better analysis.
 
+=head2 $VERBOSE
+
+Set this to true if you need to know some details.
+
 =head1 SEE ALSO
 
 Most part of this module is derived from PAUSE.
