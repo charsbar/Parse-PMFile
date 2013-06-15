@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.04 2013/06/15
+  - added minimum protection against Acme::BadExample
+
 0.03 2013/06/15
   - added $ALLOW_DEV_VERSION for analysis
   - made it ignore $VERSIONs after __(END|DATA)__
