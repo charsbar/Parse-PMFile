@@ -155,6 +155,7 @@ sub _parse_version {
                                         '*DynaLoader::']);
             $comp->share_from('version', ['&qv']);
             # $comp->permit("require"); # no strict!
+            $comp->deny(qw/enteriter iter unstack goto/); # minimum protection against Acme::BadExample
             {
                 no strict;
                 $v = $comp->reval($eval);
