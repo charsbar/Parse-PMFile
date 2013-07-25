@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.05 2013/07/25
+  - switched to JSON::PP (per request of miyagawa)
+
 0.04 2013/06/15
   - added minimum protection against Acme::BadExample
 
