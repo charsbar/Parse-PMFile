@@ -3,7 +3,7 @@ package Parse::PMFile;
 use strict;
 use warnings;
 use Safe;
-use JSON;
+use JSON::PP;
 use Dumpvalue;
 use CPAN::Version;
 use version ();
@@ -70,7 +70,7 @@ sub parse {
 
         my $pp = $ppp->{$package};
         if ($pp->{version} && $pp->{version} =~ /^\{.*\}$/) { # JSON parser error
-            my $err = JSON::from_json($pp->{version});
+            my $err = JSON::PP::decode_json($pp->{version});
             if ($err->{openerr}) {
                 $self->_verbose(1,
                               qq{Parse::PMFile was not able to
@@ -169,13 +169,13 @@ sub _parse_version {
                     }
                     if ($@) {
                         $self->_verbose(1, sprintf("reval failed: err[%s] for eval[%s]",
-                                      JSON::to_json($err,{pretty => 1}),
+                                      JSON::PP::encode_json($err),
                                       $eval,
                                     ));
-                        $v = JSON::to_json($err);
+                        $v = JSON::PP::encode_json($err);
                     }
                 } else {
-                    $v = JSON::to_json({ openerr => $err });
+                    $v = JSON::PP::encode_json({ openerr => $err });
                 }
             }
             if (defined $v) {

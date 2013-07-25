@@ -13,7 +13,7 @@ my %params = (
         'Dumpvalue' => 0,
         'File::Spec' => 0,
         'File::Temp' => 0,
-        'JSON' => '2.00',
+        'JSON::PP' => '2.00',
         'Safe' => 0,
         'version' => '0.79',
     },
