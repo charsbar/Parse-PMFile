@@ -4,7 +4,7 @@ use Test::More;
 
 plan skip_all => "requires WorePAN" unless eval "use WorePAN 0.03; 1";
 my @tests = (
-  ['M/ML/MLEHMANN/common-sense-3.72.tar.gz', 'sense.pm.PL', 'common::sense', '3.72'],
+  ['J/JT/JTBRAUN/Parse-RecDescent-1.967009.tar.gz', 'lib/Parse/RecDescent.pm', 'Parse::RecDescent', '1.967009'],
 );
 
 for my $test (@tests) {

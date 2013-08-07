@@ -4,7 +4,7 @@ use Test::More;
 
 plan skip_all => "requires WorePAN" unless eval "use WorePAN 0.03; 1";
 my @tests = (
-  ['M/ML/MLEHMANN/common-sense-3.72.tar.gz', 'sense.pm.PL', 'common::sense', '3.72'],
+  ['S/SR/SRI/Mojolicious-4.23.tar.gz', 'lib/Mojolicious/Command/generate/plugin.pm', 'Mojolicious::Command::generate::plugin', 'undef'],
 );
 
 for my $test (@tests) {
