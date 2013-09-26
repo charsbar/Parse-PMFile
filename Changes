@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.06 2013/09/26
+  - included all of the CPAN::Version methods
+    to drop CPAN(::Version) dependency
+
 0.05 2013/07/25
   - switched to JSON::PP (per request of miyagawa)
 
