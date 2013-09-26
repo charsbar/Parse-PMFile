@@ -9,7 +9,6 @@ my %params = (
     ABSTRACT_FROM => 'lib/Parse/PMFile.pm',
     LICENSE       => 'perl',
     PREREQ_PM     => {
-        'CPAN::Version' => 0,
         'Dumpvalue' => 0,
         'File::Spec' => 0,
         'File::Temp' => 0,
