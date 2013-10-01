@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.07 2013/10/01
+  - made it ignore "$package or" (previously this was wrongly
+    detected as "or" package)
+
 0.06 2013/09/26
   - included all of the CPAN::Version methods
     to drop CPAN(::Version) dependency

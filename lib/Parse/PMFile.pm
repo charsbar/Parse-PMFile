@@ -10,7 +10,7 @@ use File::Spec ();
 use File::Temp ();
 use POSIX ':sys_wait_h';
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 our $VERBOSE = 0;
 our $ALLOW_DEV_VERSION = 0;
 
