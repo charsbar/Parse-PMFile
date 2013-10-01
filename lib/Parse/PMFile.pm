@@ -229,6 +229,7 @@ sub _packages_per_pmfile {
         if (
             $pline =~ m{
                       # (.*) # takes too much time if $pline is long
+                      (?<![*\$\\@%&]) # no sigils
                       \bpackage\s+
                       ([\w\:\']+)
                       \s*
