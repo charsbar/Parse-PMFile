@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.08 2013/10/10
+  - added a feature to return info about invalid versions
+
 0.07 2013/10/01
   - made it ignore "$package or" (previously this was wrongly
     detected as "or" package)
