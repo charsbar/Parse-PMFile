@@ -166,6 +166,7 @@ sub _parse_version {
                 # warn ">>>>>>>err[$err]<<<<<<<<";
                 if (ref $err) {
                     if ($err->{line} =~ /[\$*]([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
+                        local($^W) = 0;
                         $v = $comp->reval($2);
                     }
                     if ($@ or !$v) {
