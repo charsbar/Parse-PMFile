@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.09 2013/10/10
+  - silenced warnings
+
 0.08 2013/10/10
   - added a feature to return info about invalid versions
 
