@@ -47,7 +47,7 @@ sub parse {
     # the database
     #
 
-    my ($package);
+    my ($package, %errors);
   DBPACK: foreach $package (@keys_ppp) {
         # this part is taken from PAUSE::package::examine_pkg
         if ($package !~ /^\w[\w\:\']*\w?\z/
@@ -75,6 +75,7 @@ sub parse {
                               qq{Parse::PMFile was not able to
         read the file. It issued the following error: C< $err->{r} >},
                               );
+                $errors{$package} = {open => $err->{r}};
             } else {
                 $self->_verbose(1, 
                               qq{Parse::PMFile was not able to
@@ -88,6 +89,7 @@ sub parse {
         another) workaround against "Safe" limitations.)},
 
                               );
+                $errors{$package} = {parse_version => $err->{line}};
             }
             delete $ppp->{$package};
             next;
@@ -106,7 +108,7 @@ sub parse {
         }
     }                       # end foreach package
 
-    return $ppp;
+    return (wantarray && %errors) ? ($ppp, \%errors) : $ppp;
 }
 
 # from PAUSE::pmfile;
@@ -166,7 +168,7 @@ sub _parse_version {
                     if ($err->{line} =~ /[\$*]([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
                         $v = $comp->reval($2);
                     }
-                    if ($@) {
+                    if ($@ or !$v) {
                         $self->_verbose(1, sprintf("reval failed: err[%s] for eval[%s]",
                                       JSON::PP::encode_json($err),
                                       $eval,
@@ -667,6 +669,9 @@ Parse::PMFile - parses .pm file as PAUSE does
 
     my $parser = Parse::PMFile->new($metadata);
     my $packages_info = $parser->parse($pmfile);
+
+    # if you need info about invalid versions
+    my ($packages_info, $errors) = $parser->parse($pmfile);
 
 =head1 DESCRIPTION
 
