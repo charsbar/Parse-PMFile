@@ -71,7 +71,10 @@ sub parse {
         if ($pp->{version} && $pp->{version} =~ /^\{.*\}$/) { # JSON parser error
             my $err = JSON::PP::decode_json($pp->{version});
             if ($err->{x_normalize}) {
-                $errors{$package} = {normalize => $err->{version}};
+                $errors{$package} = {
+                    normalize => $err->{version},
+                    infile => $pp->{infile},
+                };
                 $pp->{version} = "undef";
                 next;
             } elsif ($err->{openerr}) {
@@ -79,7 +82,10 @@ sub parse {
                               qq{Parse::PMFile was not able to
         read the file. It issued the following error: C< $err->{r} >},
                               );
-                $errors{$package} = {open => $err->{r}};
+                $errors{$package} = {
+                    open => $err->{r},
+                    infile => $pp->{infile},
+                };
             } else {
                 $self->_verbose(1, 
                               qq{Parse::PMFile was not able to
@@ -93,7 +99,10 @@ sub parse {
         another) workaround against "Safe" limitations.)},
 
                               );
-                $errors{$package} = {parse_version => $err->{line}};
+                $errors{$package} = {
+                    parse_version => $err->{line},
+                    infile => $err->{file},
+                };
             }
             delete $ppp->{$package};
             next;
