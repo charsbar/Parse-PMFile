@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.10 2013/10/12
+  - keep normalization errors as well
+
 0.09 2013/10/10
   - silenced warnings
 
