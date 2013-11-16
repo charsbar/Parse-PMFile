@@ -157,9 +157,9 @@ sub _parse_version {
 
             my($comp) = Safe->new("_pause::mldistwatch");
             my $eval = qq{
-              local(\$^W) = 0;
-              Parse::PMFile::_parse_version_safely("$pmcp");
-              };
+                local(\$^W) = 0;
+                Parse::PMFile::_parse_version_safely("$pmcp");
+            };
             $comp->permit("entereval"); # for MBARBON/Module-Info-0.30.tar.gz
             $comp->share("*Parse::PMFile::_parse_version_safely");
             $comp->share("*version::new");
@@ -349,14 +349,14 @@ sub _packages_per_pmfile {
             next unless /([\$*])(([\w\:\']*)\bVERSION)\b.*(?<![!><=])\=(?![=>])/;
             my $current_parsed_line = $_;
             my $eval = qq{
-          package #
-              ExtUtils::MakeMaker::_version;
+                package #
+                    ExtUtils::MakeMaker::_version;
 
-          local $1$2;
-          \$$2=undef; do {
-              $_
-          }; \$$2
-      };
+                local $1$2;
+                \$$2=undef; do {
+                    $_
+                }; \$$2
+            };
             local $^W = 0;
             local $SIG{__WARN__} = sub {};
             $result = eval($eval);
