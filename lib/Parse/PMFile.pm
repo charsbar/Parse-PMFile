@@ -282,7 +282,7 @@ sub _packages_per_pmfile {
                 if ($self->_version_from_meta_ok) {
                     my $provides = $self->{META_CONTENT}{provides};
                     if (exists $provides->{$pkg}) {
-                        if (exists $provides->{$pkg}{version}) {
+                        if (defined $provides->{$pkg}{version}) {
                             my $v = $provides->{$pkg}{version};
                             if ($v =~ /[_\s]/ && !$ALLOW_DEV_VERSION){   # ignore developer releases and "You suck!"
                                 next PLINE;
