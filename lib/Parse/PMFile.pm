@@ -178,9 +178,10 @@ sub _parse_version {
                 my $err = $@;
                 # warn ">>>>>>>err[$err]<<<<<<<<";
                 if (ref $err) {
-                    if ($err->{line} =~ /[\$*]([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
+                    if ($err->{line} =~ /([\$*])([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
                         local($^W) = 0;
-                        $v = $comp->reval($2);
+                        $v = $comp->reval($3);
+                        $v = $$v if $1 eq '*';
                     }
                     if ($@ or !$v) {
                         $self->_verbose(1, sprintf("reval failed: err[%s] for eval[%s]",
