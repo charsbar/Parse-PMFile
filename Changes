@@ -1,5 +1,11 @@
 Revision history for Parse-PMFile
 
+0.11 2013/11/17
+  - fixed *VERSION = \... handling
+  - fixed VERSION detection to ignore version comparison
+  - keep error infile as well
+  - silenced warnings
+
 0.10 2013/10/12
   - keep normalization errors as well
 
