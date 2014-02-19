@@ -12,10 +12,9 @@ for my $test (@tests) {
   note "downloading $path...";
 
   my $worepan = WorePAN->new(
-    root => 'tmp',
     no_network => 0,
     use_backpan => 1,
-    cleanup => 0,
+    cleanup => 1,
     no_indices => 1,
     files => [$path],
   );
@@ -34,7 +33,7 @@ for my $test (@tests) {
       ($info, $errs) = $parser->parse($file);
       alarm 0;
     };
-    ok !$@ && ref $info eq ref {} && $info->{$package}{version} eq $version, "returned no version";
+    ok !$@ && ref $info eq ref {} && !$info->{$package}{version}, "returned no version";
     ok !$@ && ref $errs eq ref {} && $errs->{$package}{parse_version}, "returned invalid version";
     note $@ if $@;
     note explain $info;
