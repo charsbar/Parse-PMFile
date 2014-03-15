@@ -9,5 +9,7 @@ t/30_multiple_equals.t
 t/31_ignore_version_after_end.t
 t/32_allow_dev_version.t
 t/33_ignore_variable_named_package.t
+t/34_math_version.t
+t/40_package_versions.t
 t/99_pod.t
 t/99_podcoverage.t
