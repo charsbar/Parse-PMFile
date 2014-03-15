@@ -1,5 +1,11 @@
 Revision history for Parse-PMFile
 
+0.13 2014/03/15
+  - tweaked to allow math functions in VERSION specification
+    (Acme::Pi uses atan2 to define its package version)
+  - fixed parsing of "package NAME BLOCK", which was not suppported
+    (KENTNL++)
+
 0.12 2014/02/19
   - fixed *VERSION = *... handling
 
