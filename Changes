@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.14 2014/03/15
+  - updated MANIFEST and included a few tests for 0.13
+
 0.13 2014/03/15
   - tweaked to allow math functions in VERSION specification
     (Acme::Pi uses atan2 to define its package version)
