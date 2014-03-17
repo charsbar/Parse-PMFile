@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.15 2014/03/17
+  - no_index for package/namespace hasn't been applied correctly
+
 0.14 2014/03/15
   - updated MANIFEST and included a few tests for 0.13
 
