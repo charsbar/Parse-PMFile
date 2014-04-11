@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.16 2014/04/11
+  - reflected the changes done in PAUSE at QAH 2014
+
 0.15 2014/03/17
   - no_index for package/namespace hasn't been applied correctly
 
