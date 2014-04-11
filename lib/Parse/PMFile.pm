@@ -70,6 +70,7 @@ sub parse {
 
         my $pp = $ppp->{$package};
         if ($pp->{version} && $pp->{version} =~ /^\{.*\}$/) { # JSON parser error
+            my $dont_delete;
             my $err = JSON::PP::decode_json($pp->{version});
             if ($err->{x_normalize}) {
                 $errors{$package} = {
@@ -77,7 +78,7 @@ sub parse {
                     infile => $pp->{infile},
                 };
                 $pp->{version} = "undef";
-                next;
+                $dont_delete = 1;
             } elsif ($err->{openerr}) {
                 $self->_verbose(1,
                               qq{Parse::PMFile was not able to
@@ -105,8 +106,10 @@ sub parse {
                     infile => $err->{file},
                 };
             }
-            delete $ppp->{$package};
-            next;
+            unless ($dont_delete) {
+                delete $ppp->{$package};
+                next;
+            }
         }
 
         # Sanity checks
