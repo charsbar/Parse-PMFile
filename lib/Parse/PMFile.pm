@@ -30,7 +30,13 @@ sub parse {
     $self->{PMFILE} = $pmfile;
 
     unless ($self->_version_from_meta_ok) {
-        $self->{VERSION} = $self->_parse_version;
+        my $version;
+        unless (eval { $version = $self->_parse_version; 1 }) {
+          $self->_verbose(1, "error with version in $pmfile: $@");
+          return;
+        }
+
+        $self->{VERSION} = $version;
         if ($self->{VERSION} =~ /^\{.*\}$/) {
             # JSON error message
         } elsif ($self->{VERSION} =~ /[_\s]/ && !$ALLOW_DEV_VERSION){   # ignore developer releases and "You suck!"
@@ -51,15 +57,12 @@ sub parse {
     my %checked_in;
   DBPACK: foreach $package (@keys_ppp) {
         # this part is taken from PAUSE::package::examine_pkg
+        # and PAUSE::package::_pkg_name_insane
         if ($package !~ /^\w[\w\:\']*\w?\z/
-            ||
-            $package !~ /\w\z/
-            ||
-            $package =~ /:/ && $package !~ /::/
-            ||
-            $package =~ /\w:\w/
-            ||
-            $package =~ /:::/
+         || $package !~ /\w\z/
+         || $package =~ /:/ && $package !~ /::/
+         || $package =~ /\w:\w/
+         || $package =~ /:::/
         ){
             $self->_verbose(1,"Package[$package] did not pass the ultimate sanity check");
             delete $ppp->{$package};
@@ -67,6 +70,23 @@ sub parse {
         }
 
         # Can't do perm_check() here.
+
+        # Check that package name matches case of file name
+        {
+          my (undef, $module) = split m{/lib/}, $self->{PMFILE}, 2;
+          if ($module) {
+            $module =~ s{\.pm\z}{};
+            $module =~ s{/}{::}g;
+
+            if (lc $module eq lc $package && $module ne $package) {
+              # warn "/// $self->{PMFILE} vs. $module vs. $package\n";
+              $errors{$package} = {
+                indexing_warning => "Capitalization of package ($package) does not match filename!",
+                infile => $self->{PMFILE},
+              };
+            }
+          }
+        }
 
         my $pp = $ppp->{$package};
         if ($pp->{version} && $pp->{version} =~ /^\{.*\}$/) { # JSON parser error
@@ -293,9 +313,14 @@ sub _packages_per_pmfile {
                             my $v = $provides->{$pkg}{version};
                             if ($v =~ /[_\s]/ && !$ALLOW_DEV_VERSION){   # ignore developer releases and "You suck!"
                                 next PLINE;
-                            } else {
-                                $ppp->{$pkg}{version} = $self->_normalize_version($v);
                             }
+
+                            unless (eval { $version = $self->_normalize_version($v); 1 }) {
+                              $self->_verbose(1, "error with version in $pmfile: $@");
+                              next;
+
+                            }
+                            $ppp->{$pkg}{version} = $version;
                         } else {
                             $ppp->{$pkg}{version} = "undef";
                         }
@@ -352,6 +377,13 @@ sub _packages_per_pmfile {
             next if $inpod || /^\s*#/;
             last if /^__(?:END|DATA)__\b/; # fails on quoted __END__ but this is rare -> __END__ in the middle of a line is rarer
             chop;
+
+            if (my ($ver) = /package \s+ \S+ \s+ (\S+) \s* [;{]/x) {
+              # XXX: should handle this better if version is bogus -- rjbs,
+              # 2014-03-16
+              return $ver if version::is_lax($ver);
+            }
+
             # next unless /\$(([\w\:\']*)\bVERSION)\b.*\=/;
             next unless /([\$*])(([\w\:\']*)\bVERSION)\b.*(?<![!><=])\=(?![=>])/;
             my $current_parsed_line = $_;
