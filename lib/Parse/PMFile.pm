@@ -233,6 +233,9 @@ sub _parse_version {
                 open my $fh, '>:utf8', $tmpfile;
                 print $fh $v;
                 exit 0;
+            } else {
+                # undefine empty $v as if read from the tmpfile
+                $v = undef if defined $v && !length $v;
             }
         }
     }
