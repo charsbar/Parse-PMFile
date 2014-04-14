@@ -234,6 +234,7 @@ sub _parse_version {
                 print $fh $v;
                 exit 0;
             } else {
+                utf8::encode($v);
                 # undefine empty $v as if read from the tmpfile
                 $v = undef if defined $v && !length $v;
             }
