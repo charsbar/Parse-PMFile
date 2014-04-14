@@ -14,10 +14,14 @@ print $fh "package " . "Parse::PMFile::Test;\n";
 print $fh do {local $/; <DATA>};
 close $fh;
 
-my $parser = Parse::PMFile->new;
-my $info = $parser->parse($pmfile);
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
+  my $parser = Parse::PMFile->new;
+  my $info = $parser->parse($pmfile);
 
-is $info->{'Parse::PMFile::Test'}{version} => '1.12';
+  is $info->{'Parse::PMFile::Test'}{version} => '1.12';
+}
 
 done_testing;
 

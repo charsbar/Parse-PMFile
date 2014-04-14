@@ -13,6 +13,7 @@ use POSIX ':sys_wait_h';
 our $VERSION = '0.16';
 our $VERBOSE = 0;
 our $ALLOW_DEV_VERSION = 0;
+our $FORK = 1;
 
 sub new {
     my ($class, $meta) = @_;
@@ -170,8 +171,11 @@ sub _parse_version {
 
         # XXX: do we need to fork as PAUSE does?
         # or, is alarm() just fine?
-        my $pid = fork();
-        die "Can't fork: $!" unless defined $pid;
+        my $pid;
+        if ($FORK) {
+            $pid = fork();
+            die "Can't fork: $!" unless defined $pid;
+        }
         if ($pid) {
             waitpid($pid, 0);
             if (open my $fh, '<', $tmpfile) {
@@ -225,12 +229,14 @@ sub _parse_version {
             } else {
                 $v = "";
             }
-            open my $fh, '>:utf8', $tmpfile;
-            print $fh $v;
-            exit 0;
+            if ($FORK) {
+                open my $fh, '>:utf8', $tmpfile;
+                print $fh $v;
+                exit 0;
+            }
         }
     }
-    unlink $tmpfile if -e $tmpfile;
+    unlink $tmpfile if $FORK && -e $tmpfile;
 
     return $self->_normalize_version($v);
 }

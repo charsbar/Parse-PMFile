@@ -14,7 +14,9 @@ print $fh "package " . "Parse::PMFile::Test;\n";
 print $fh 'our $VERSION = "0.01_01";',"\n"; # this should be ignored
 close $fh;
 
-{
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
   local $Parse::PMFile::ALLOW_DEV_VERSION = 0;
   my $parser = Parse::PMFile->new;
   my $info = $parser->parse($pmfile);
@@ -23,7 +25,9 @@ close $fh;
   note explain $info;
 }
 
-{
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
   local $Parse::PMFile::ALLOW_DEV_VERSION = 0;
   my $parser = Parse::PMFile->new({
     provides => {
@@ -38,7 +42,9 @@ close $fh;
   note explain $info;
 }
 
-{
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
   local $Parse::PMFile::ALLOW_DEV_VERSION = 1;
   my $parser = Parse::PMFile->new;
   my $info = $parser->parse($pmfile);
@@ -47,7 +53,9 @@ close $fh;
   note explain $info;
 }
 
-{
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
   local $Parse::PMFile::ALLOW_DEV_VERSION = 1;
   my $parser = Parse::PMFile->new({
     provides => {

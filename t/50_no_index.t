@@ -14,16 +14,20 @@ print $fh "package " . "Parse::PMFile::Test;\n";
 print $fh 'our $VERSION = "0.01";', "\n";
 close $fh;
 
-my $parser = Parse::PMFile->new({
-  no_index => {
-    package => [qw/
-      Parse::PMFile::Test
-    /]
-  }
-});
-my $info = $parser->parse($pmfile);
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
+  my $parser = Parse::PMFile->new({
+    no_index => {
+      package => [qw/
+        Parse::PMFile::Test
+      /]
+    }
+  });
+  my $info = $parser->parse($pmfile);
 
-ok !$info->{'Parse::PMFile::Test'};
-note explain $info;
+  ok !$info->{'Parse::PMFile::Test'};
+  note explain $info;
+}
 
 done_testing;

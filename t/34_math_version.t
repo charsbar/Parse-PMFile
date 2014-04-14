@@ -14,11 +14,15 @@ print $fh "package " . "Parse::PMFile::Test;\n";
 print $fh 'my $version = atan2(1,1) * 4; $Parse::PMFile::Test::VERSION = "$version";', "\n";  # from Acme-Pi-3
 close $fh;
 
-my $parser = Parse::PMFile->new;
-my $info = $parser->parse($pmfile);
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
+  my $parser = Parse::PMFile->new;
+  my $info = $parser->parse($pmfile);
 
-is substr($info->{'Parse::PMFile::Test'}{version} || '', 0, 4) => "3.14";
-#note explain $info;
+  is substr($info->{'Parse::PMFile::Test'}{version} || '', 0, 4) => "3.14";
+  #note explain $info;
+}
 
 done_testing;
 

@@ -26,16 +26,20 @@ for my $test (@tests) {
     my $file = $dir->file($pmfile);
     my $parser = Parse::PMFile->new;
 
-    my $info;
-    eval {
-      local $SIG{ALRM} = sub { die "timeout\n" };
-      alarm 30;
-      $info = $parser->parse($file);
-      alarm 0;
-    };
-    ok !$@ && ref $info eq ref {} && $info->{$package}{version} eq $version, "parsed successfully in time";
-    note $@ if $@;
-    note explain $info;
+    for (0..1) {
+      no warnings 'once';
+      local $Parse::PMFile::FORK = $_;
+      my $info;
+      eval {
+        local $SIG{ALRM} = sub { die "timeout\n" };
+        alarm 30;
+        $info = $parser->parse($file);
+        alarm 0;
+      };
+      ok !$@ && ref $info eq ref {} && $info->{$package}{version} eq $version, "parsed successfully in time";
+      note $@ if $@;
+      note explain $info;
+    }
   });
 }
 

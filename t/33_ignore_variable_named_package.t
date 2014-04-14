@@ -16,11 +16,15 @@ print $fh 'die;', "\n";
 print $fh 'our $VERSION = "0.01";',"\n"; # this should be ignored
 close $fh;
 
-my $parser = Parse::PMFile->new;
-my $info = $parser->parse($pmfile);
+for (0..1) {
+  no warnings 'once';
+  local $Parse::PMFile::FORK = $_;
+  my $parser = Parse::PMFile->new;
+  my $info = $parser->parse($pmfile);
 
-ok !$info->{'or'};
-note explain $info;
+  ok !$info->{'or'};
+  note explain $info;
+}
 
 done_testing;
 

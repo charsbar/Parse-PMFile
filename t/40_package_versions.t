@@ -42,11 +42,15 @@ sub test {
   print $fh join "\n", @lines, "";
   close $fh;
 
-  my $parser = Parse::PMFile->new;
-  my $info = $parser->parse($pmfile);
+  for (0..1) {
+    no warnings 'once';
+    local $Parse::PMFile::FORK = $_;
+    my $parser = Parse::PMFile->new;
+    my $info = $parser->parse($pmfile);
 
-  is $info->{'Parse::PMFile::Test'}{version} => '0.01';
-  # note explain $info;
+    is $info->{'Parse::PMFile::Test'}{version} => '0.01';
+    # note explain $info;
+  }
 }
 
 done_testing;
