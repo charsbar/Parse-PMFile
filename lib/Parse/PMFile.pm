@@ -766,6 +766,10 @@ Parse::PMFile usually ignores a version with an underscore as PAUSE does (becaus
 
 Set this to true if you need to know some details.
 
+=head2 $FORK
+
+As of version 0.17, Parse::PMFile stops forking while parsing a version for better performance. Parse::PMFile should return the same result no matter how this variable is set, but if you do care, set this to true to fork as PAUSE does.
+
 =head1 SEE ALSO
 
 Most part of this module is derived from PAUSE and CPAN::Version.
