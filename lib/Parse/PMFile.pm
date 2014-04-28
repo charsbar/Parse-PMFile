@@ -237,12 +237,36 @@ sub _parse_version {
                 utf8::encode($v);
                 # undefine empty $v as if read from the tmpfile
                 $v = undef if defined $v && !length $v;
+                $comp->erase;
+                $self->_restore_overloaded_stuff;
             }
         }
     }
     unlink $tmpfile if $FORK && -e $tmpfile;
 
     return $self->_normalize_version($v);
+}
+
+sub _restore_overloaded_stuff {
+    my $self = shift;
+    return unless $] >= 5.009000;
+
+    no strict 'refs';
+    no warnings 'redefine';
+
+    if (version->isa('version::vxs')) {
+        *{'version::(""'} = \&version::vxs::stringify;
+        *{'version::(0+'} = \&version::vxs::numify;
+        *{'version::(cmp'} = \&version::vxs::VCMP;
+        *{'version::(<=>'} = \&version::vxs::VCMP;
+        *{'version::(bool'} = \&version::vxs::boolean;
+    } else {
+        *{'version::(""'} = \&version::vpp::stringify;
+        *{'version::(0+'} = \&version::vpp::numify;
+        *{'version::(cmp'} = \&version::vpp::vcmp;
+        *{'version::(<=>'} = \&version::vpp::vcmp;
+        *{'version::(bool'} = \&version::vpp::vbool;
+    }
 }
 
 # from PAUSE::pmfile;
