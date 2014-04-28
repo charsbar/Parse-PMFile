@@ -1,5 +1,11 @@
 Revision history for Parse-PMFile
 
+0.18 2014/04/28
+  - make sure to erase stuff in Safe.pm and restore overloaded
+    version.pm stuff so that version.pm works correctly after
+    parsing versions via Parse::PMFile
+  - cpanfile
+
 0.17 2014/04/15
   - not to fork by default
 
