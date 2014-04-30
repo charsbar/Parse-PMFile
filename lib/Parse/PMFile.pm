@@ -254,18 +254,27 @@ sub _restore_overloaded_stuff {
     no strict 'refs';
     no warnings 'redefine';
 
+    # version XS in CPAN
     if (version->isa('version::vxs')) {
         *{'version::(""'} = \&version::vxs::stringify;
         *{'version::(0+'} = \&version::vxs::numify;
         *{'version::(cmp'} = \&version::vxs::VCMP;
         *{'version::(<=>'} = \&version::vxs::VCMP;
         *{'version::(bool'} = \&version::vxs::boolean;
-    } else {
+    # version PP in CPAN
+    } elsif (version->isa('version::vpp')) {
         *{'version::(""'} = \&version::vpp::stringify;
         *{'version::(0+'} = \&version::vpp::numify;
         *{'version::(cmp'} = \&version::vpp::vcmp;
         *{'version::(<=>'} = \&version::vpp::vcmp;
         *{'version::(bool'} = \&version::vpp::vbool;
+    # version in core
+    } else {
+        *{'version::(""'} = \&version::stringify;
+        *{'version::(0+'} = \&version::numify;
+        *{'version::(cmp'} = \&version::vcmp;
+        *{'version::(<=>'} = \&version::vcmp;
+        *{'version::(bool'} = \&version::boolean;
     }
 }
 
