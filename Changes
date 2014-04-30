@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.19 2014/04/30
+  - restore in-core version overloads correctly
+  - bumped up the version requirement slightly (moznion++)
+
 0.18 2014/04/28
   - make sure to erase stuff in Safe.pm and restore overloaded
     version.pm stuff so that version.pm works correctly after
