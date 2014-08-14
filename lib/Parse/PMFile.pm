@@ -428,7 +428,7 @@ sub _packages_per_pmfile {
             }
 
             # next unless /\$(([\w\:\']*)\bVERSION)\b.*\=/;
-            next unless /([\$*])(([\w\:\']*)\bVERSION)\b.*(?<![!><=])\=(?![=>])/;
+            next unless /(?<!\\)([\$*])(([\w\:\']*)\bVERSION)\b.*(?<![!><=])\=(?![=>])/;
             my $current_parsed_line = $_;
             my $eval = qq{
                 package #
