@@ -70,7 +70,10 @@ sub parse {
             next;
         }
 
-        # Can't do perm_check() here.
+        if ($self->{USERID} && $self->{PERMISSIONS} && !$self->_perm_check($package)) {
+            delete $ppp->{$package};
+            next;
+        }
 
         # Check that package name matches case of file name
         {
@@ -148,6 +151,17 @@ sub parse {
     }                       # end foreach package
 
     return (wantarray && %errors) ? (\%checked_in, \%errors) : \%checked_in;
+}
+
+sub _perm_check {
+    my ($self, $package) = @_;
+    my $userid = $self->{USERID};
+    my $module = $self->{PERMISSIONS}->module_permissions($package);
+    return 1 if !$module; # not listed yet
+    return 1 if defined $module->m && $module->m eq $userid;
+    return 1 if defined $module->f && $module->f eq $userid;
+    return 1 if defined $module->c && grep {$_ eq $userid} @{$module->c};
+    return;
 }
 
 # from PAUSE::pmfile;
@@ -773,9 +787,15 @@ Parse::PMFile - parses .pm file as PAUSE does
     # if you need info about invalid versions
     my ($packages_info, $errors) = $parser->parse($pmfile);
 
+    # to check permissions
+    my $parser = Parse::PMFile->new($metadata, {
+        USERID => 'ISHIGAKI',
+        PERMISSIONS => PAUSE::Permissions->new,
+    });
+
 =head1 DESCRIPTION
 
-The most of the code of this module is taken from the PAUSE code as of April 2013 almost verbatim. Thus, the heart of this module should be quite stable. However, I made it not to use pipe ("-|") as well as I stripped database-related code and permission check. If you encounter any issue, that's most probably because of my modification.
+The most of the code of this module is taken from the PAUSE code as of April 2013 almost verbatim. Thus, the heart of this module should be quite stable. However, I made it not to use pipe ("-|") as well as I stripped database-related code. If you encounter any issue, that's most probably because of my modification.
 
 This module doesn't provide features to extract a distribution or parse meta files intentionally.
 
@@ -798,6 +818,10 @@ Set this to true if you need to know some details.
 =item FORK
 
 As of version 0.17, Parse::PMFile stops forking while parsing a version for better performance. Parse::PMFile should return the same result no matter how this option is set, but if you do care, set this to true to fork as PAUSE does.
+
+=item USERID, PERMISSIONS
+
+As of version 0.21, Parse::PMFile checks permissions of a package if both USERID and PERMISSIONS (which should be an instance of L<PAUSE::Permissions>) are provided. Unauthorized packages are removed.
 
 =back
 
