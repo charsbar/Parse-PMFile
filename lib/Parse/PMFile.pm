@@ -831,6 +831,8 @@ takes a path to a .pm file, and returns a hash reference that holds information 
 
 =head1 SEE ALSO
 
+L<Parse::LocalDistribution>, L<PAUSE::Permissions>
+
 Most part of this module is derived from PAUSE and CPAN::Version.
 
 L<https://github.com/andk/pause>
