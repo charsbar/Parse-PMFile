@@ -4,7 +4,7 @@ use Test::More;
 use Parse::PMFile;
 use File::Temp;
 
-plan skip_all => "requires PAUSE::Permissions to test" unless eval { use PAUSE::Permissions 0.08; 1 };
+plan skip_all => "requires PAUSE::Permissions to test" unless eval "use PAUSE::Permissions 0.08; 1";
 
 my $tmpdir = File::Temp->newdir(CLEANUP => 1);
 plan skip_all => "tmpdir is not ready" unless -e $tmpdir && -w $tmpdir;
