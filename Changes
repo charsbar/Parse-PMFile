@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.22 2014/09/02
+  - tweak for backward compatibility
+
 0.21 2014/09/02
   - implemented permission check
   - constructor options
