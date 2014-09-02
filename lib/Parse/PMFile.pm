@@ -645,7 +645,7 @@ sub _version_from_meta_ok {
 
 sub _verbose {
     my($self,$level,@what) = @_;
-    warn @what if $level <= ($self->{VERBOSE} || $VERBOSE);
+    warn @what if $level <= ((ref $self && $self->{VERBOSE}) || $VERBOSE);
 }
 
 # all of the following methods are stripped from CPAN::Version
