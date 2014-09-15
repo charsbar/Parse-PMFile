@@ -208,6 +208,7 @@ sub _parse_version {
             $comp->share("*version::new");
             $comp->share("*version::numify");
             $comp->share_from('main', ['*version::',
+                                        '*charstar::',
                                         '*Exporter::',
                                         '*DynaLoader::']);
             $comp->share_from('version', ['&qv']);
