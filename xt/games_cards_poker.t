@@ -7,6 +7,7 @@ my @tests = (
   ['P/PI/PIP/Games-Cards-Poker-1.2.4CCJ12M.tgz', 'Poker.pm', 'Games::Cards::Poker', 'undef'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

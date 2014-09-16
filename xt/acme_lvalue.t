@@ -8,6 +8,7 @@ my @tests = (
   ['M/MA/MAUKE/Acme-Lvalue-0.03.tar.gz', 'lib/Acme/Lvalue.pm', 'Acme::Lvalue', '0.03'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

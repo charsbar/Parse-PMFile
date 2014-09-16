@@ -7,6 +7,7 @@ my @tests = (
   ['P/PI/PIP/XML-Tidy-1.12.B55J2qn.tgz', 'Tidy.pm', 'XML::Tidy', '1.12.B55J2qn'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

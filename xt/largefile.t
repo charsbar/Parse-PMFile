@@ -7,6 +7,7 @@ my @tests = (
   ['L/LB/LBROCARD/Module-CPANTS-0.005.tar.gz', 'lib/Module/CPANTS.pm', 'Module::CPANTS', '0.005'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

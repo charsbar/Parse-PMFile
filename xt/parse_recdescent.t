@@ -7,6 +7,7 @@ my @tests = (
   ['J/JT/JTBRAUN/Parse-RecDescent-1.967009.tar.gz', 'lib/Parse/RecDescent.pm', 'Parse::RecDescent', '1.967009'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

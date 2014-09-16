@@ -7,6 +7,7 @@ my @tests = (
   ['M/ML/MLEHMANN/common-sense-3.72.tar.gz', 'sense.pm.PL', 'common::sense', '3.72'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

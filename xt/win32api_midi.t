@@ -7,6 +7,7 @@ my @tests = (
   ['HAYASHI/Win32API-MIDI-0.05.tar.gz', 'MIDI/Out.pm', 'Win32API::MIDI::Out', 'undef'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

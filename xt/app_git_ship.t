@@ -7,6 +7,7 @@ my @tests = (
   ['JHTHORSEN/App-git-ship-0.07.tar.gz', 'lib/App/git/ship/perl.pm', 'App::git::ship::perl', 'undef'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

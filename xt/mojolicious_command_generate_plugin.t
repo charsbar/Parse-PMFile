@@ -7,6 +7,7 @@ my @tests = (
   ['S/SR/SRI/Mojolicious-4.23.tar.gz', 'lib/Mojolicious/Command/generate/plugin.pm', 'Mojolicious::Command::generate::plugin', 'undef'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

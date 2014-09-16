@@ -8,6 +8,7 @@ my @tests = (
   ['BORISD/EBook-MOBI-0.69.tar.gz', 'lib/EBook/MOBI/MobiPerl/MobiHeader.pm', 'EBook::MOBI::Palm::Doc', 'undef'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

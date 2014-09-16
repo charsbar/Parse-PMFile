@@ -7,6 +7,7 @@ my @tests = (
   ['S/SE/SEANO/sepia-0.61.tgz', 'Xref.pm', 'Sepia::Xref', undef],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";

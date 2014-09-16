@@ -7,6 +7,7 @@ my @tests = (
   ['D/DO/DOY/KiokuDB-0.54.tar.gz', 'lib/KiokuDB/Util.pm', 'KiokuDB::Util', 'undef'],
 );
 
+require Parse::PMFile;
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version) = @$test;
   note "downloading $path...";
