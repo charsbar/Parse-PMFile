@@ -8,3 +8,8 @@ requires 'version' => '0.83';
 on test => sub {
   requires 'Test::More' => '0.88';
 };
+
+on develop => sub {
+  requires 'PAUSE::Permissions' => '0.08';
+  requires 'WorePAN' => '0.13';
+};
