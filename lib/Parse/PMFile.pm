@@ -198,26 +198,34 @@ sub _parse_version {
         } else {
             # XXX Limit Resources too
 
-            my($comp) = Safe->new("_pause::mldistwatch");
             my $eval = qq{
                 local(\$^W) = 0;
                 Parse::PMFile::_parse_version_safely("$pmcp");
             };
-            $comp->permit("entereval"); # for MBARBON/Module-Info-0.30.tar.gz
-            $comp->share("*Parse::PMFile::_parse_version_safely");
-            $comp->share("*version::new");
-            $comp->share("*version::numify");
-            $comp->share_from('main', ['*version::',
-                                        '*charstar::',
-                                        '*Exporter::',
-                                        '*DynaLoader::']);
-            $comp->share_from('version', ['&qv']);
-            $comp->permit(":base_math"); # atan2 (Acme-Pi)
-            # $comp->permit("require"); # no strict!
-            $comp->deny(qw/enteriter iter unstack goto/); # minimum protection against Acme::BadExample
-            {
+
+            my($comp);
+            if ($self->{UNSAFE}) {
                 no strict;
-                $v = $comp->reval($eval);
+                $v = eval $eval;
+            } else {
+                $comp = Safe->new("_pause::mldistwatch");
+
+                $comp->permit("entereval"); # for MBARBON/Module-Info-0.30.tar.gz
+                $comp->share("*Parse::PMFile::_parse_version_safely");
+                $comp->share("*version::new");
+                $comp->share("*version::numify");
+                $comp->share_from('main', ['*version::',
+                                           '*charstar::',
+                                           '*Exporter::',
+                                           '*DynaLoader::']);
+                $comp->share_from('version', ['&qv']);
+                $comp->permit(":base_math"); # atan2 (Acme-Pi)
+                # $comp->permit("require"); # no strict!
+                $comp->deny(qw/enteriter iter unstack goto/); # minimum protection against Acme::BadExample
+                {
+                    no strict;
+                    $v = $comp->reval($eval);
+                }
             }
             if ($@){ # still in the child process, out of Safe::reval
                 my $err = $@;
@@ -225,7 +233,7 @@ sub _parse_version {
                 if (ref $err) {
                     if ($err->{line} =~ /([\$*])([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
                         local($^W) = 0;
-                        $v = $comp->reval($3);
+                        $v = $comp ? $comp->reval($3) : eval($3);
                         $v = $$v if $1 eq '*' && ref $v;
                     }
                     if ($@ or !$v) {
