@@ -241,7 +241,7 @@ sub _parse_version {
                 }
             }
             if (defined $v) {
-                $v = $v->numify if ref($v) eq 'version';
+                $v = $v->numify if ref($v) =~ /^version(::vpp)?$/;
             } else {
                 $v = "";
             }
