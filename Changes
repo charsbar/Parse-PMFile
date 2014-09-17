@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.24 2014/09/17
+  - improved fatpacked version::vpp support
+
 0.23 2014/09/16
   - let Safe compartment share charstar:: stuff so that older perls
     forced to use version::vpp can correctly parse $VERSION declared by
