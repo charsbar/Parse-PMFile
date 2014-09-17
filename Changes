@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.26 2014/09/17
+  - version::vpp should also be numified
+
 0.25 2014/09/17
   - hid charstar from PAUSE
 
