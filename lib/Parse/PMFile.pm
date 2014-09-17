@@ -279,7 +279,11 @@ sub _restore_overloaded_stuff {
         *{'version::(bool'} = \&version::vxs::boolean;
     # version PP in CPAN
     } elsif (version->isa('version::vpp')) {
-        { package charstar; overload->import }
+        {
+            package # hide from PAUSE
+                charstar;
+            overload->import;
+        }
         *{'version::(""'} = \&version::vpp::stringify;
         *{'version::(0+'} = \&version::vpp::numify;
         *{'version::(cmp'} = \&version::vpp::vcmp;
