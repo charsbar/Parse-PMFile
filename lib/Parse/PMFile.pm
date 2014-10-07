@@ -436,7 +436,7 @@ sub _packages_per_pmfile {
         }
     }
 
-    $fh->close;
+    close $fh;
     $ppp;
 }
 
