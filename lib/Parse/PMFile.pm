@@ -3,12 +3,10 @@ package Parse::PMFile;
 use strict;
 use warnings;
 use Safe;
-use JSON::PP;
+use JSON::PP ();
 use Dumpvalue;
 use version ();
 use File::Spec ();
-use File::Temp ();
-use POSIX ':sys_wait_h';
 
 our $VERSION = '0.26';
 our $VERBOSE = 0;
