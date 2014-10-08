@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
+plan skip_all => "requires perl 5.10" if $] < 5.010000;
 plan skip_all => "requires WorePAN" unless eval "use WorePAN 0.03; 1";
 my @tests = (
   ['A/AD/ADAMK/Acme-BadExample-1.01.tar.gz', 'lib/Acme/BadExample.pm', 'Acme::BadExample', 'undef'],
