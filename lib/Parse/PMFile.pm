@@ -266,15 +266,10 @@ sub _parse_version {
 
 sub _restore_overloaded_stuff {
     my $self = shift;
+    return if $self->{UNSAFE} || $UNSAFE;
 
     no strict 'refs';
     no warnings 'redefine';
-
-    {
-        package # hide from PAUSE
-            version;
-        overload->import;
-    }
 
     # version XS in CPAN
     if (version->isa('version::vxs')) {
