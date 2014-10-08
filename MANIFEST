@@ -15,6 +15,7 @@ t/40_package_versions.t
 t/50_no_index.t
 t/60_permissions.t
 t/70_vpp.t
+t/71_qv.t
 t/80_version_overload.t
 t/99_pod.t
 t/99_podcoverage.t
