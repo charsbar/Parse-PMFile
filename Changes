@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.28 2014/10/08
+  - import qv into main package if UNSAFE
+  - reverted restoring overloaded stuff from version.pm (miyagawa++ for both)
+
 0.27 2014/10/08
   - added UNSAFE option for older perls plus recent versions of
     Safe/version
