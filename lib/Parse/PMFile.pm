@@ -214,6 +214,8 @@ sub _parse_version {
             $comp->permit(":base_math"); # atan2 (Acme-Pi)
             # $comp->permit("require"); # no strict!
             $comp->deny(qw/enteriter iter unstack goto/); # minimum protection against Acme::BadExample
+
+            version->import('qv') if $self->{UNSAFE} || $UNSAFE;
             {
                 no strict;
                 $v = ($self->{UNSAFE} || $UNSAFE) ? eval $eval : $comp->reval($eval);
