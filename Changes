@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.29 2014/10/10
+  - silenced a redefinition warning
+
 0.28 2014/10/08
   - import qv into main package if UNSAFE
   - reverted restoring overloaded stuff from version.pm (miyagawa++ for both)
