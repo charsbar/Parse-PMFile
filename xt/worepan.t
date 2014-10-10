@@ -14,6 +14,7 @@ my @tests = (
   ['SRI/Mojolicious-4.23.tar.gz', 'lib/Mojolicious/Command/generate/plugin.pm', 'Mojolicious::Command::generate::plugin', 'undef'],
   ['JTBRAUN/Parse-RecDescent-1.967009.tar.gz', 'lib/Parse/RecDescent.pm', 'Parse::RecDescent', '1.967009'],
   ['HAYASHI/Win32API-MIDI-0.05.tar.gz', 'MIDI/Out.pm', 'Win32API::MIDI::Out', 'undef'],
+  ['CJFIELDS/BioPerl-1.6.923.tar.gz', 'Bio/Root/RootI.pm', 'Bio::Root::RootI', 'undef'], # version comparison
 
   # normalize
   ['BORISD/EBook-MOBI-0.69.tar.gz', 'lib/EBook/MOBI/MobiPerl/MobiHeader.pm', 'EBook::MOBI::Palm::Doc', 'undef', 'normalize'],
