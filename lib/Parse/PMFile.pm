@@ -197,7 +197,7 @@ sub _parse_version {
         } else {
             # XXX Limit Resources too
 
-            my($comp) = Safe->new("_pause::mldistwatch");
+            my($comp) = Safe->new;
             my $eval = qq{
                 local(\$^W) = 0;
                 Parse::PMFile::_parse_version_safely("$pmcp");
