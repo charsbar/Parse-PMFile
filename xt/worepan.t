@@ -31,7 +31,7 @@ my @tests = (
   # from cpanminus/xt/meta.t
   ['MIYAGAWA/Hash-MultiValue-0.10.tar.gz', 'lib/Hash/MultiValue.pm', 'Hash::MultiValue', '0.10'],
   ['MIYAGAWA/Module-CPANfile-0.9035.tar.gz', 'lib/Module/CPANfile.pm', 'Module::CPANfile', '0.9035'],
-  ['NEDKONZ/Algorithm-Diff-1.1902.tar.gz', 'lib/Algorithm/Diff.pm', 'Algorithm::Diff', '1.1902'],
+  ['TYEMQ/Algorithm-Diff-1.1902.tar.gz', 'lib/Algorithm/Diff.pm', 'Algorithm::Diff', '1.1902'],
   ['ADAMK/Test-Object-0.07.tar.gz', 'lib/Test/Object.pm', 'Test::Object', '0.07'],
   ['GAAS/IO-String-1.08.tar.gz', 'String.pm', 'IO::String', '1.08'],
   ['RCLAMP/Class-Accessor-Chained-0.01.tar.gz', 'lib/Class/Accessor/Chained.pm', 'Class::Accessor::Chained', '0.01'],
