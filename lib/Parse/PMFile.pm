@@ -272,24 +272,39 @@ sub _restore_overloaded_stuff {
     no warnings 'redefine';
 
     # version XS in CPAN
-    if (version->isa('version::vxs')) {
+    my $restored;
+    if ($INC{'version/vxs.pm'}) {
         *{'version::(""'} = \&version::vxs::stringify;
         *{'version::(0+'} = \&version::vxs::numify;
         *{'version::(cmp'} = \&version::vxs::VCMP;
         *{'version::(<=>'} = \&version::vxs::VCMP;
         *{'version::(bool'} = \&version::vxs::boolean;
+        $restored = 1;
+    }
     # version PP in CPAN
-    } elsif (version->isa('version::vpp')) {
+    if ($INC{'version/vpp.pm'}) {
         {
             package # hide from PAUSE
                 charstar;
             overload->import;
         }
-        *{'version::(""'} = \&version::vpp::stringify;
-        *{'version::(0+'} = \&version::vpp::numify;
-        *{'version::(cmp'} = \&version::vpp::vcmp;
-        *{'version::(<=>'} = \&version::vpp::vcmp;
-        *{'version::(bool'} = \&version::vpp::vbool;
+        {
+            package # hide from PAUSE
+                version::vpp;
+            overload->import;
+        }
+        unless ($restored) {
+            *{'version::(""'} = \&version::vpp::stringify;
+            *{'version::(0+'} = \&version::vpp::numify;
+            *{'version::(cmp'} = \&version::vpp::vcmp;
+            *{'version::(<=>'} = \&version::vpp::vcmp;
+            *{'version::(bool'} = \&version::vpp::vbool;
+        }
+        *{'version::vpp::(""'} = \&version::vpp::stringify;
+        *{'version::vpp::(0+'} = \&version::vpp::numify;
+        *{'version::vpp::(cmp'} = \&version::vpp::vcmp;
+        *{'version::vpp::(<=>'} = \&version::vpp::vcmp;
+        *{'version::vpp::(bool'} = \&version::vpp::vbool;
         *{'charstar::(""'} = \&charstar::thischar;
         *{'charstar::(0+'} = \&charstar::thischar;
         *{'charstar::(++'} = \&charstar::increment;
@@ -301,8 +316,10 @@ sub _restore_overloaded_stuff {
         *{'charstar::(<=>'} = \&charstar::spaceship;
         *{'charstar::(bool'} = \&charstar::thischar;
         *{'charstar::(='} = \&charstar::clone;
+        $restored = 1;
+    }
     # version in core
-    } else {
+    if (!$restored) {
         *{'version::(""'} = \&version::stringify;
         *{'version::(0+'} = \&version::numify;
         *{'version::(cmp'} = \&version::vcmp;
