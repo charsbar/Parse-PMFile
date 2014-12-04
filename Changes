@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.30 2014/12/05
+  - restore overloaded stuff from version::vpp as well (if necessary)
+    (haarg++)
+
 0.29 2014/10/10
   - silenced a redefinition warning
 
