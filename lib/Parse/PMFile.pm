@@ -288,6 +288,11 @@ sub _restore_overloaded_stuff {
                 charstar;
             overload->import;
         }
+        {
+            package # hide from PAUSE
+                version::vpp;
+            overload->import;
+        }
         unless ($restored) {
             *{'version::(""'} = \&version::vpp::stringify;
             *{'version::(0+'} = \&version::vpp::numify;
