@@ -13,6 +13,8 @@ install:
   - cpanm -nq --installdeps --with-develop --with-recommends --with-suggests .
 script:
   - prove -lr t xt
+  - cpanm -nq version
+  - prove -lr t xt
 env:
   - PERL5LIB=
   - PERL5LIB=t/fatlib

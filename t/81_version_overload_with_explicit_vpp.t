@@ -3,7 +3,8 @@ use warnings;
 use Test::More;
 use FindBin;
 use Parse::PMFile;
-use version::vpp;
+
+eval "use version::vpp; 1" or plan skip_all => "requires version::vpp";
 
 for my $fork (0..1) {
   test_version($fork);
