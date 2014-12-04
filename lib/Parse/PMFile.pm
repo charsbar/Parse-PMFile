@@ -226,9 +226,10 @@ sub _parse_version {
                 if (ref $err) {
                     if ($err->{line} =~ /([\$*])([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
                         local($^W) = 0;
-                        $self->_restore_overloaded_stuff if version->isa('version::vpp');
-                        $v = ($self->{UNSAFE} || $UNSAFE) ? eval $3 : $comp->reval($3);
-                        $v = $$v if $1 eq '*' && ref $v;
+                        my ($sigil, $vstr) = ($1, $3);
+                        $self->_restore_overloaded_stuff(1) if $err->{line} =~ /use\s+version\b/;
+                        $v = ($self->{UNSAFE} || $UNSAFE) ? eval $vstr : $comp->reval($vstr);
+                        $v = $$v if $sigil eq '*' && ref $v;
                     }
                     if ($@ or !$v) {
                         $self->_verbose(1, sprintf("reval failed: err[%s] for eval[%s]",
@@ -265,7 +266,7 @@ sub _parse_version {
 }
 
 sub _restore_overloaded_stuff {
-    my $self = shift;
+    my ($self, $used_version_in_safe) = @_;
     return if $self->{UNSAFE} || $UNSAFE;
 
     no strict 'refs';
@@ -288,7 +289,7 @@ sub _restore_overloaded_stuff {
                 charstar;
             overload->import;
         }
-        {
+        if (!$used_version_in_safe) {
             package # hide from PAUSE
                 version::vpp;
             overload->import;
