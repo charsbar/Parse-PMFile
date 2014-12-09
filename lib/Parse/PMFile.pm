@@ -227,7 +227,7 @@ sub _parse_version {
                     if ($err->{line} =~ /([\$*])([\w\:\']*)\bVERSION\b.*?\=(.*)/) {
                         local($^W) = 0;
                         my ($sigil, $vstr) = ($1, $3);
-                        $self->_restore_overloaded_stuff(1) if $err->{line} =~ /use\s+version\b/;
+                        $self->_restore_overloaded_stuff(1) if $err->{line} =~ /use\s+version\b|version\->|qv\(/;
                         $v = ($self->{UNSAFE} || $UNSAFE) ? eval $vstr : $comp->reval($vstr);
                         $v = $$v if $sigil eq '*' && ref $v;
                     }
