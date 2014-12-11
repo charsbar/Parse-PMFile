@@ -11,7 +11,7 @@ my $pmfile = "$tmpdir/Test.pm";
 {
   open my $fh, '>', $pmfile or plan skip_all => "Failed to create a pmfile";
   print $fh "package " . "Parse::PMFile::Test;\n";
-  print $fh '$Parse::PMFile::VERSION = version->declare("v0.0.1");',"\n";
+  print $fh '$Parse::PMFile::Test::VERSION = version->declare("v0.0.1");',"\n";
   close $fh;
 }
 
