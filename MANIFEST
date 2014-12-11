@@ -18,6 +18,10 @@ t/70_vpp.t
 t/71_qv.t
 t/72_vpp_without_using_version.t
 t/73_qv_without_using_version.t
+t/74_vpp_without_using_version_and_our.t
+t/75_vpp_without_our.t
+t/76_qv_without_using_version_and_our.t
+t/77_qv_without_our.t
 t/80_version_overload.t
 t/81_version_overload_with_explicit_vpp.t
 t/99_pod.t

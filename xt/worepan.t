@@ -16,6 +16,7 @@ my @tests = (
   ['HAYASHI/Win32API-MIDI-0.05.tar.gz', 'MIDI/Out.pm', 'Win32API::MIDI::Out', 'undef'],
   ['CJFIELDS/BioPerl-1.6.923.tar.gz', 'Bio/Root/RootI.pm', 'Bio::Root::RootI', 'undef'], # version comparison
   ['FAYLAND/Dist-Zilla-Plugin-ReadmeFromPod-0.30.tar.gz', 'lib/Dist/Zilla/Plugin/ReadmeFromPod.pm', 'Dist::Zilla::Plugin::ReadmeFromPod', '0.30'],
+  ['RRWO/Pod-Readme-v1.1.2.tar.gz', 'lib/Pod/Readme.pm', 'Pod::Readme', '1.001002'],
 
   # normalize
   ['BORISD/EBook-MOBI-0.69.tar.gz', 'lib/EBook/MOBI/MobiPerl/MobiHeader.pm', 'EBook::MOBI::Palm::Doc', 'undef', 'normalize'],
