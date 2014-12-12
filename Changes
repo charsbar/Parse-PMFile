@@ -1,5 +1,10 @@
 Revision history for Parse-PMFile
 
+0.32 2014/12/12
+  - improved version->declare handling (by numifying earlier for Safe
+    not to do with a version object)
+  - stored overloaded stuff in the object
+
 0.31 2014/12/09
   - fixed cases where version->declare / qv() used in the VERSION line
     without using version explicitly
