@@ -289,11 +289,6 @@ sub _restore_overloaded_stuff {
     for my $key (%{ $self->{overloaded} || {} }) {
         *{$key} = $self->{overloaded}{$key} if $self->{overloaded}{$key};
     }
-    if ($self->{overloaded}{'version::(""'}) {
-        package #
-            version;
-        overload->import;
-    }
     if ($self->{overloaded}{'charstar::(""'}) {
         package #
             charstar;
