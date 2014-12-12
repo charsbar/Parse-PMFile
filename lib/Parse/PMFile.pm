@@ -507,6 +507,9 @@ sub _packages_per_pmfile {
         close FH;
 
         $result = "undef" unless defined $result;
+        if ((ref $result) =~ /^version(?:::vpp)?\b/) {
+            $result = $result->numify;
+        }
         return $result;
     }
 }
