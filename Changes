@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.33 2014/12/13
+  - reverted the change in 0.32 to store overloaded stuff in the object
+    which seems to have caused segfaults under some environments
+
 0.32 2014/12/12
   - improved version->declare handling (by numifying earlier for Safe
     not to do with a version object)
