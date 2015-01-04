@@ -2,22 +2,21 @@ use strict;
 use warnings;
 use Test::More;
 use Parse::PMFile;
-use File::Temp;
+use Test::TempDir::Tiny;
 
 plan skip_all => "requires PAUSE::Permissions to test" unless eval "use PAUSE::Permissions 0.08; 1";
 
-my $tmpdir = File::Temp->newdir(CLEANUP => 1);
-plan skip_all => "tmpdir is not ready" unless -e $tmpdir && -w $tmpdir;
+use lib 't/lib';
+use TempModule;
 
-my $pmfile = "$tmpdir/Test.pm";
-{
-  open my $fh, '>', $pmfile or plan skip_all => "Failed to create a pmfile";
-  print $fh "package " . "Parse::PMFile::Test;\n";
-  print $fh 'our $VERSION = "0.01";',"\n";
-  close $fh;
-}
+my $module = <<'MODULE';
+package Parse::PMFile::Test;
+our $VERSION = "0.01";
+MODULE
 
-my $permsfile = "$tmpdir/06perms.txt";
+my $pmfile = temp_module('Test.pm', $module);
+
+my $permsfile = tempdir() . "06perms.txt";
 {
   open my $fh, '>', $permsfile or plan skip_all => "Failed to create a 06perms.txt";
   print $fh "File:        06perms.txt\n";
@@ -28,7 +27,7 @@ my $permsfile = "$tmpdir/06perms.txt";
   close $fh;
 }
 
-my $permissions = PAUSE::Permissions->new(path => "$tmpdir/06perms.txt");
+my $permissions = PAUSE::Permissions->new(path => $permsfile);
 
 for (0..1) {
   no warnings 'once';
