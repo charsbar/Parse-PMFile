@@ -18,6 +18,9 @@ my @tests = (
   ['FAYLAND/Dist-Zilla-Plugin-ReadmeFromPod-0.30.tar.gz', 'lib/Dist/Zilla/Plugin/ReadmeFromPod.pm', 'Dist::Zilla::Plugin::ReadmeFromPod', '0.30'],
   ['RRWO/Pod-Readme-v1.1.2.tar.gz', 'lib/Pod/Readme.pm', 'Pod::Readme', '1.001002'],
 
+  # our $VERSION in a block
+  ['ETHER/Test-Warnings-0.019.tar.gz', 'lib/Test/Warnings.pm', 'Test::Warnings', '0.019'],
+
   # normalize
   ['BORISD/EBook-MOBI-0.69.tar.gz', 'lib/EBook/MOBI/MobiPerl/MobiHeader.pm', 'EBook::MOBI::Palm::Doc', 'undef', 'normalize'],
   ['PIP/Games-Cards-Poker-1.2.4CCJ12M.tgz', 'Poker.pm', 'Games::Cards::Poker', 'undef', 'normalize'],
