@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.34 2015/01/04
+  - fixed a case where our $VERSION is in a block. (ether++, mst++)
+
 0.33 2014/12/13
   - reverted the change in 0.32 to store overloaded stuff in the object
     which seems to have caused segfaults under some environments
