@@ -21,10 +21,10 @@ my @tests = (
   # normalize
   ['BORISD/EBook-MOBI-0.69.tar.gz', 'lib/EBook/MOBI/MobiPerl/MobiHeader.pm', 'EBook::MOBI::Palm::Doc', 'undef', 'normalize'],
   ['PIP/Games-Cards-Poker-1.2.4CCJ12M.tgz', 'Poker.pm', 'Games::Cards::Poker', 'undef', 'normalize'],
+  ['PIP/XML-Tidy-1.12.B55J2qn.tgz', 'Tidy.pm', 'XML::Tidy', 'undef', 'normalize'], # 1.12.B55J2qn
 
   # parse_version
   ['SEANO/sepia-0.61.tgz', 'Xref.pm', 'Sepia::Xref', undef, 'parse_version'],
-  ['PIP/XML-Tidy-1.12.B55J2qn.tgz', 'Tidy.pm', 'XML::Tidy', undef, 'parse_version'], # 1.12.B55J2qn
 
   # version.pm
   ['MIYAGAWA/CPAN-Test-Dummy-Perl5-VersionDeclare-v0.0.1.tar.gz', 'lib/CPAN/Test/Dummy/Perl5/VersionDeclare.pm', 'CPAN::Test::Dummy::Perl5::VersionDeclare', '0.000001'],
