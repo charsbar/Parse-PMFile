@@ -11,6 +11,7 @@ t/31_ignore_version_after_end.t
 t/32_allow_dev_version.t
 t/33_ignore_variable_named_package.t
 t/34_math_version.t
+t/35_scoped_our_version.t
 t/40_package_versions.t
 t/50_no_index.t
 t/60_permissions.t
