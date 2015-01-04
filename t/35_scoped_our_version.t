@@ -7,8 +7,6 @@ use File::Temp;
 my $tmpdir = File::Temp->newdir(CLEANUP => 1);
 plan skip_all => "tmpdir is not ready" unless -e $tmpdir && -w $tmpdir;
 
-local $TODO = 'this syntax is not yet supported';
-
 my $pmfile = "$tmpdir/Test.pm";
 
 open my $fh, '>', $pmfile or plan skip_all => "Failed to create a pmfile";

@@ -1,5 +1,7 @@
 package Parse::PMFile;
 
+sub __clean_eval { eval $_[0] } # needs to be here (RT#101273)
+
 use strict;
 use warnings;
 use Safe;
@@ -492,7 +494,7 @@ sub _packages_per_pmfile {
             };
             local $^W = 0;
             local $SIG{__WARN__} = sub {};
-            $result = eval($eval);
+            $result = __clean_eval($eval);
             # warn "current_parsed_line[$current_parsed_line]\$\@[$@]";
             if ($@ or !defined $result){
                 die +{
