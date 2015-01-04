@@ -2,10 +2,9 @@ use strict;
 use warnings;
 use Test::More;
 use Parse::PMFile;
-use File::Temp;
 
-my $tmpdir = File::Temp->newdir(CLEANUP => 1);
-plan skip_all => "tmpdir is not ready" unless -e $tmpdir && -w $tmpdir;
+use lib 't/lib';
+use TempModule;
 
 test('package '.'Parse::PMFile::Test', <<'TEST');
 {
@@ -36,11 +35,7 @@ TEST
 sub test {
   my @lines = @_;
 
-  my $pmfile = "$tmpdir/Test.pm";
-
-  open my $fh, '>', $pmfile or plan skip_all => "Failed to create a pmfile";
-  print $fh join "\n", @lines, "";
-  close $fh;
+  my $pmfile = temp_module('Test.pm', join "\n", @lines);
 
   for (0..1) {
     no warnings 'once';
@@ -54,4 +49,3 @@ sub test {
 }
 
 done_testing;
-
