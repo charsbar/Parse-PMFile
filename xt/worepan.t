@@ -27,7 +27,7 @@ my @tests = (
   ['PIP/XML-Tidy-1.12.B55J2qn.tgz', 'Tidy.pm', 'XML::Tidy', 'undef', 'normalize'], # 1.12.B55J2qn
 
   # parse_version
-  ['SEANO/sepia-0.61.tgz', 'Xref.pm', 'Sepia::Xref', undef, 'parse_version'],
+  ['SEANO/sepia-0.61.tgz', 'Xref.pm', 'Sepia::Xref', 'undef', 'parse_version'],
 
   # version.pm
   ['MIYAGAWA/CPAN-Test-Dummy-Perl5-VersionDeclare-v0.0.1.tar.gz', 'lib/CPAN/Test/Dummy/Perl5/VersionDeclare.pm', 'CPAN::Test::Dummy::Perl5::VersionDeclare', '0.000001'],
@@ -45,7 +45,7 @@ my @tests = (
 );
 
 push @tests, (
-  ['A/AD/ADAMK/Acme-BadExample-1.01.tar.gz', 'lib/Acme/BadExample.pm', 'Acme::BadExample', undef],
+  ['A/AD/ADAMK/Acme-BadExample-1.01.tar.gz', 'lib/Acme/BadExample.pm', 'Acme::BadExample', 'undef'],
 ) unless $] < 5.010000;
 
 for my $test (@tests) {
