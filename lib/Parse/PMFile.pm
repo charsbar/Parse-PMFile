@@ -336,7 +336,6 @@ sub _packages_per_pmfile {
     my $filemtime = $self->{MTIME};
     my $version = $self->{VERSION};
 
-    $DB::single++;
     open my $fh, "<", "$pmfile" or return $ppp;
 
     local $/ = "\n";
