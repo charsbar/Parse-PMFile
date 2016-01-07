@@ -29,6 +29,9 @@ my @tests = (
   # parse_version
   ['SEANO/sepia-0.61.tgz', 'Xref.pm', 'Sepia::Xref', 'undef', 'parse_version'],
 
+  # too long version
+  ['REEDFISH/Net-FullAuto-0.9999999999999928.tar.gz', 'lib/Net/FullAuto.pm', 'Net::FullAuto', undef, 'long_version'],
+
   # version.pm
   ['MIYAGAWA/CPAN-Test-Dummy-Perl5-VersionDeclare-v0.0.1.tar.gz', 'lib/CPAN/Test/Dummy/Perl5/VersionDeclare.pm', 'CPAN::Test::Dummy::Perl5::VersionDeclare', '0.000001'],
   ['MIYAGAWA/CPAN-Test-Dummy-Perl5-VersionQV-v0.1.0.tar.gz', 'lib/CPAN/Test/Dummy/Perl5/VersionQV.pm', 'CPAN::Test::Dummy::Perl5::VersionQV', '0.001000'],

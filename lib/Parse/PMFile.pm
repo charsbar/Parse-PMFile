@@ -144,10 +144,23 @@ sub parse {
                 next;            # don't screw up 02packages
             }
         }
+        unless ($self->_version_ok($pp)) {
+            $errors{$package} = {
+                long_version => qq{Version string exceeds maximum allowed length of 16b: "$pp->{version}"},
+                infile => $pp->{infile},
+            };
+            next;
+        }
         $checked_in{$package} = $ppp->{$package};
     }                       # end foreach package
 
     return (wantarray && %errors) ? (\%checked_in, \%errors) : \%checked_in;
+}
+
+sub _version_ok {
+    my ($self, $pp) = @_;
+    return if length($pp->{version} || 0) > 16;
+    return 1
 }
 
 sub _perm_check {
