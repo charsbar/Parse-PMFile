@@ -1,5 +1,9 @@
 Revision history for Parse-PMFile
 
+0.37 2016/01/07
+  - ported version_ok() implemented in PAUSE to disallow a VERSION
+    that is too long to store correctly in the PAUSE database
+
 0.36 2015/04/16
   - removed an unnecessary $DB::single line (oalders++)
 
