@@ -3,6 +3,12 @@ use warnings;
 use Test::More;
 use Parse::PMFile;
 use File::Temp;
+use Opcode;
+use Safe;
+
+diag "atan2: ".atan2(1,1) * 4;
+diag "Safe: $Safe::VERSION";
+diag "Opcode: $Opcode::VERSION";
 
 my $tmpdir = File::Temp->newdir(CLEANUP => 1);
 plan skip_all => "tmpdir is not ready" unless -e $tmpdir && -w $tmpdir;
