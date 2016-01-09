@@ -1,5 +1,10 @@
 Revision history for Parse-PMFile
 
+0.38 2016/01/09
+  - no code changes
+  - added diagnostic messages to find the reason of sporadic
+    fail reports from Testers with recent perls
+
 0.37 2016/01/07
   - ported version_ok() implemented in PAUSE to disallow a VERSION
     that is too long to store correctly in the PAUSE database
