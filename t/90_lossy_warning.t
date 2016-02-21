@@ -21,10 +21,13 @@ for (0..1) {
   my $parser = Parse::PMFile->new(undef, {ALLOW_DEV_VERSION => 1});
 
   {
+    my $expected =
+      (version->VERSION > 0.9912) ? "1.5101000" : "1.051_001";
+
     my @warnings;
     local $SIG{__WARN__} = sub {push @warnings, @_};
     my $info = $parser->parse($pmfile);
-    ok $info->{'Parse::PMFile::Test'}{version} eq version::qv("1.51_01");
+    is $info->{'Parse::PMFile::Test'}{version} => $expected;
     note explain $info;
     ok !@warnings;
     note join "\n", @warnings;
