@@ -1,5 +1,8 @@
 Revision history for Parse-PMFile
 
+0.40 2016/02/21
+  - silenced "alpha->numify() is lossy" warning
+
 0.39 2016/01/10
   - no code changes
   - fixed 34_math_version.t not to fail under perls with -Duselongdouble
