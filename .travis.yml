@@ -18,4 +18,5 @@ script:
   - prove -lr t xt
 env:
   - PERL5LIB=
-  - PERL5LIB=t/fatlib
+  - PERL5LIB=t/fatlib_9909
+  - PERL5LIB=t/fatlib_9913
