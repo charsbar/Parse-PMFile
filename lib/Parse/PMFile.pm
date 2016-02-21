@@ -254,6 +254,7 @@ sub _parse_version {
                 }
             }
             if (defined $v) {
+                no warnings qw/version numeric/;
                 $v = $v->numify if ref($v) =~ /^version(::vpp)?$/;
             } else {
                 $v = "";
@@ -518,6 +519,7 @@ sub _packages_per_pmfile {
 
         $result = "undef" unless defined $result;
         if ((ref $result) =~ /^version(?:::vpp)?\b/) {
+            no warnings qw/version numeric/;
             $result = $result->numify;
         }
         return $result;
@@ -628,6 +630,7 @@ sub _normalize_version {
         if ($forced eq $vv) {
         } elsif ($forced =~ /^v(.+)/) {
             # rare case where a v1.0.23 slipped in (JANL/w3mir-1.0.10.tar.gz)
+            no warnings qw/version numeric/;
             $vv = version->new($1)->numify;
         } else {
             # warn "Unequal forced[$forced] and vv[$vv]";
