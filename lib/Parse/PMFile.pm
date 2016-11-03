@@ -10,7 +10,7 @@ use Dumpvalue;
 use version ();
 use File::Spec ();
 
-our $VERSION = '0.40';
+our $VERSION = '0.41';
 our $VERBOSE = 0;
 our $ALLOW_DEV_VERSION = 0;
 our $FORK = 0;
