@@ -51,6 +51,10 @@ push @tests, (
   ['A/AD/ADAMK/Acme-BadExample-1.01.tar.gz', 'lib/Acme/BadExample.pm', 'Acme::BadExample', 'undef'],
 ) unless $] < 5.010000;
 
+push @tests, (
+  ['KITOMER/App-XUL-0.07.tar.gz', 'lib/App/XUL.pm', 'Eventhandlers', undef],
+);
+
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version, $error_name) = @$test;
   note "downloading $path...";
