@@ -397,7 +397,7 @@ sub _packages_per_pmfile {
             # Found something
 
             # from package
-            $pkg =~ s/\'/::/;
+            $pkg =~ s/\'/::/g;
             next PLINE unless $pkg =~ /^[A-Za-z]/;
             next PLINE unless $pkg =~ /\w$/;
             next PLINE if $pkg eq "main";
