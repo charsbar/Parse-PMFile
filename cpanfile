@@ -3,6 +3,7 @@ requires 'File::Spec' => 0;
 requires 'JSON::PP' => '2.00';
 requires 'Safe' => 0;
 requires 'version' => '0.83';
+requires 'ExtUtils::MakeMaker::CPANfile' => 0;
 
 on test => sub {
   requires 'File::Temp' => '0.19'; # newdir
