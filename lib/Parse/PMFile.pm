@@ -382,7 +382,7 @@ sub _packages_per_pmfile {
                       # (.*) # takes too much time if $pline is long
                       #(?<![*\$\\@%&]) # no sigils
                       ^[\s\{;]*
-                      \bpackage\s+
+                      \b(?:package|class|role)\s+
                       ([\w\:\']+)
                       \s*
                       (?: $ | [\}\;] | \{ | \s+($version::STRICT) )
