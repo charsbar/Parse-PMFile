@@ -462,6 +462,7 @@ sub _packages_per_pmfile {
                             length($ppp->{$pkg}{version});
             }
             $ppp->{$pkg}{filemtime} = $filemtime;
+            $ppp->{$pkg}{version} .= "";    # make sure to stringify version
         } else {
             # $self->_verbose(2,"no pkg found");
         }
