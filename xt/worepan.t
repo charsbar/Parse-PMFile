@@ -45,6 +45,9 @@ my @tests = (
   ['RCLAMP/Class-Accessor-Chained-0.01.tar.gz', 'lib/Class/Accessor/Chained.pm', 'Class::Accessor::Chained', '0.01'],
   ['ROODE/Readonly-1.03.tar.gz', 'Readonly.pm', 'Readonly', '1.03'],
   ['ACG/Scrabble-Dict-0.01.tar.gz', 'lib/Scrabble/Dict.pm', 'Scrabble::Dict', '0.01'],
+
+  # BOM
+  ['DANKOGAI/Lingua-JA-Numbers-0.05.tar.gz', 'lib/Lingua/JA/Numbers.pm', 'Lingua::JA::Numbers', '0.05'],
 );
 
 push @tests, (
