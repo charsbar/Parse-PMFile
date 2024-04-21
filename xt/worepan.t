@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use Parse::PMFile;
+use File::Temp;
 
 plan skip_all => "requires WorePAN" unless eval "use WorePAN 0.09; 1";
 
@@ -92,6 +93,8 @@ push @tests, (
   ['KITOMER/App-XUL-0.07.tar.gz', 'lib/App/XUL.pm', 'Eventhandlers', undef],
 );
 
+my $root = File::Temp::tempdir(CLEANUP => 1);
+
 for my $test (@tests) {
   my ($path, $pmfile, $package, $version, $error_name) = @$test;
   note "downloading $path...";
@@ -102,6 +105,7 @@ for my $test (@tests) {
     cleanup => 1,
     no_indices => 1,
     files => [$path],
+    root => $root,
   );
 
   note "parsing $path...";
