@@ -397,7 +397,10 @@ sub _packages_per_pmfile {
 
         # some modules also enables class and role
         # XXX: what to do with MooseX::Declare and a few minor experiments)
-        if ($pline =~ /^[\s\{;]*use\s+(?:Object::Pad|Feature::Compat::Class)[^;]*;/) {
+        if ($pline =~ /^[\s\{;]*use\s+(?:Feature::Compat::Class)[^;]*;/) {
+            $package_or_class = 'package|class';
+        }
+        if ($pline =~ /^[\s\{;]*use\s+(?:Object::Pad)[^;]*;/) {
             $package_or_class = 'package|class|role';
         }
 
