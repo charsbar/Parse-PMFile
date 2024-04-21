@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use Test::More;
 use Parse::PMFile;
+use File::Temp;
+use Test::Deep;
 
 plan skip_all => "requires WorePAN" unless eval "use WorePAN 0.09; 1";
 
@@ -48,6 +50,40 @@ my @tests = (
 
   # BOM
   ['DANKOGAI/Lingua-JA-Numbers-0.05.tar.gz', 'lib/Lingua/JA/Numbers.pm', 'Lingua::JA::Numbers', '0.05'],
+
+  # experimental class
+  ['RWP/App-APA-0.230470.tar.gz', 'lib/App/APA.pm', 'App::APA', 'undef'],
+
+  # Feature::Compat::Class class
+  ['DAVECROSS/Amazon-Sites-0.1.6.tar.gz', 'lib/Amazon/Sites.pm', 'Amazon::Sites', '0.001006'],
+
+  # Object::Pad class
+  ['DRCLAW/File-Meta-Cache-v0.3.0.tar.gz', 'lib/File/Meta/Cache.pm', 'File::Meta::Cache', '0.003000'],
+
+  # XXX: Inline::Python class (from Python)
+  ['BSHANKS/Wiki-Gateway-0.001991.tar.gz', 'lib/Wiki/Gateway.pm', 'Wiki::Gateway', '0.001991', undef, []],
+
+  # XXX: class (and package) in a heredoc (std should be ignored...)
+  ['MSILVA/Language-Tea-0.03.tar.gz', 'lib/Language/Tea/JavaEmitter.pm', 'Language::Tea::JavaEmitter', 'undef', undef, []],
+  ['WSNYDER/Verilog-Perl-3.482.tar.gz', 'Std.pm', 'Verilog::Std', '3.482', undef, [qw(std)]],
+
+  # XXX: Class::HPLOO class
+  ['GMPASSOS/Class-HPLOO-0.23.tar.gz', 'test/testsuper.pm', undef],
+
+  # XXX: MooseX::Declare class
+  ['RGE/App-Syndicator-0.0061.tar.gz', 'lib/App/Syndicator.pm', 'App::Syndicator', '0.0061', undef, []],
+
+  # XXX: Ambrosia::Meta
+  ['KNM/Ambrosia-0.010.tar.gz', 'lib/Ambrosia/Addons/Accessor.pm', 'Ambrosia::Addons::Accessor', '0.01', undef, [qw(Ambrosia::Addons::Accessor::Result)]],
+
+  # XXX: Moops
+  ['PERLANCAR/Perl-Examples-Accessors-0.132.tar.gz', 'lib/Perl/Examples/Accessors/Moops.pm', 'Perl::Examples::Accessors::Moops', '0.132', undef, []],
+
+  # XXX: Zydeco
+  ['LNATION/Mxpress-PDF-Mechanize-0.04.tar.gz', 'lib/Mxpress/PDF/Mechanize.pm', 'Mxpress::PDF::Mechanize', '0.04', undef, []],
+
+  # XXX: multi-lined @EXPORT?
+  ['INGY/Lingy-0.1.19.tar.gz', 'lib/Lingy/Common.pm', 'Lingy::Common', 'undef', undef, []],
 );
 
 push @tests, (
@@ -58,8 +94,10 @@ push @tests, (
   ['KITOMER/App-XUL-0.07.tar.gz', 'lib/App/XUL.pm', 'Eventhandlers', undef],
 );
 
+my $root = File::Temp::tempdir(CLEANUP => 1);
+
 for my $test (@tests) {
-  my ($path, $pmfile, $package, $version, $error_name) = @$test;
+  my ($path, $pmfile, $package, $version, $error_name, $extra_packages) = @$test;
   note "downloading $path...";
 
   my $worepan = WorePAN->new(
@@ -68,6 +106,7 @@ for my $test (@tests) {
     cleanup => 1,
     no_indices => 1,
     files => [$path],
+    root => $root,
   );
 
   note "parsing $path...";
@@ -89,6 +128,10 @@ for my $test (@tests) {
         alarm 0;
       };
       my $exception = $@;
+      if (!defined $package) {
+        ok !$exception && ref $info eq ref {} && %$info == 0, "empty" or note explain $info;
+        next;
+      }
       if (defined $version) {
         ok !$exception && ref $info eq ref {} && $info->{$package}{version} eq $version, "parsed successfully in time";
       } else {
@@ -96,6 +139,11 @@ for my $test (@tests) {
       }
       if ($error_name) {
         ok !$exception && ref $error eq ref {} && $error->{$package}{$error_name}, "returned error";
+      }
+      if ($extra_packages) {
+        my @expected = ($package, @$extra_packages);
+        my @packages = keys %$info;
+        cmp_bag \@packages => \@expected, "no other packages found" or note explain [grep {$_ ne $package} @packages];
       }
       push @errors, $error if $error;
       note $exception if $exception;
