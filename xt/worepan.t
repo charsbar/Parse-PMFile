@@ -128,6 +128,10 @@ for my $test (@tests) {
         alarm 0;
       };
       my $exception = $@;
+      if (!defined $package) {
+        ok !$exception && ref $info eq ref {} && %$info == 0, "empty" or note explain $info;
+        next;
+      }
       if (defined $version) {
         ok !$exception && ref $info eq ref {} && $info->{$package}{version} eq $version, "parsed successfully in time";
       } else {
