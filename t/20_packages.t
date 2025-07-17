@@ -299,7 +299,8 @@ sub test {
 
     is_deeply( [ keys %{ $info } ], [ qw/ Parse::PMFile::Test / ] )
         or diag( join "\n", @lines );
-    is $parser->{VERSION} => $version;
+    is( $parser->{VERSION} => $version )
+        or diag( 'VERSION ' . join "\n", @lines );
     # note explain $info;
   }
 }
