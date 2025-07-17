@@ -7,7 +7,15 @@ use File::Temp;
 my $tmpdir = File::Temp->newdir(CLEANUP => 1);
 plan skip_all => "tmpdir is not ready" unless -e $tmpdir && -w $tmpdir;
 
-test('class '.'Parse::PMFile::Test', <<'TEST');
+test('undef', 'class '.'Parse::PMFile::Test;');
+
+test('undef', 'class '.'Parse::PMFile::Test { }');
+
+test('undef', 'class '.'Parse::PMFile::Test :isa(Foo);');
+
+test('undef', 'class '.'Parse::PMFile::Test :isa(Foo) { }');
+
+test('0.01', 'class '.'Parse::PMFile::Test', <<'TEST');
 {
   $Parse::PMFile::Test::VERSION = "0.01";
 }
