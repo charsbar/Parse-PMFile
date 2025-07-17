@@ -415,7 +415,7 @@ sub _packages_per_pmfile {
                       \b(?:$package_or_class)\s+
                       ([\w\:\']+)
                       \s*
-                      (?: $ | [\}\;] | \{ | \s+($version::STRICT) )
+                      (?: $ | [\}\;\:] | \{ | \s+($version::STRICT) )
                     }x) {
             $pkg = $1;
             $strict_version = $2;
