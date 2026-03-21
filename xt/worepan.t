@@ -60,6 +60,12 @@ my @tests = (
   # Object::Pad class
   ['DRCLAW/File-Meta-Cache-v0.3.0.tar.gz', 'lib/File/Meta/Cache.pm', 'File::Meta::Cache', '0.003000'],
 
+  # Object::Pad class with an inline attribute
+  ['JV/JSON-Relaxed-0.098.tar.gz', 'lib/JSON/Relaxed/Parser.pm', 'JSON::Relaxed::String', '0.098'],
+
+  # Object::Pad class with an attribute in next line
+  ['JV/JSON-Relaxed-0.090.tar.gz', 'lib/JSON/Relaxed/Parser.pm', 'JSON::Relaxed::Parser::String::Quoted', '0.090'],
+
   # XXX: Inline::Python class (from Python)
   ['BSHANKS/Wiki-Gateway-0.001991.tar.gz', 'lib/Wiki/Gateway.pm', 'Wiki::Gateway', '0.001991', undef, []],
 
